@@ -21,9 +21,9 @@ private func load(){
 	var error : Unmanaged<CFError>?
 	let provider = CGDataProviderCreateWithCFData(inData)
 	let font = CGFontCreateWithDataProvider(provider)
-	if !CTFontManagerRegisterGraphicsFont(font, &error) {
+	if !CTFontManagerRegisterGraphicsFont(font!, &error) {
 		let errorDescription = CFErrorCopyDescription(error!.takeRetainedValue())
-		NSLog("Failed to load font: %@", errorDescription as! String);
+		NSLog("Failed to load font: %@", errorDescription as String);
 	}
 }
 public enum Ionicons : String {
@@ -42,7 +42,7 @@ public enum Ionicons : String {
 	public func image(size: CGFloat, color: UIColor = UIColor.blackColor()) -> UIImage {
 		let label = self.label(size, color: color)
 		UIGraphicsBeginImageContextWithOptions(label.bounds.size, false, UIScreen.mainScreen().scale)
-		label.layer.renderInContext(UIGraphicsGetCurrentContext())
+		label.layer.renderInContext(UIGraphicsGetCurrentContext()!)
 		let image = UIGraphicsGetImageFromCurrentImageContext()
 		UIGraphicsEndImageContext();
 		return image
